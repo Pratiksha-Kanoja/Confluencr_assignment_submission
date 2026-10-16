@@ -1,0 +1,17 @@
+# Deploy: New → Blueprint on Render. Set DATABASE_URL to your Supabase
+# Session-mode Postgres URI (Project Settings → Database → Connection string).
+services:
+  - type: web
+    name: transaction-webhook-service
+    runtime: docker
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: PROCESSING_DELAY_SECONDS
+        value: "30"
+      - key: LEASE_SECONDS
+        value: "120"
+      - key: MAX_ATTEMPTS
+        value: "5"
